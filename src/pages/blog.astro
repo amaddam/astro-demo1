@@ -3,41 +3,19 @@
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import Navigation from "../components/Navigation.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 import "../styles/global.css";
 const pageTitle = "博客";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{pageTitle}</title>
-	</head>
-	<body>
-		<!-- 下面的超链接应该是抽取成一个组件来使用的, 现在是需要在每个页面中重复定义 -->
-		<!-- <a href="/">首页</a> -->
-		<!-- <a href="/blog">博客</a> -->
-		<!-- <a href="/about">关于</a> -->
-
-		<!-- 使用组件 -->
-		<!-- <Navigation /> -->
-		<!-- 这里使用汉堡包和面包屑来导航, 而不是页面顶部直接点击的方式 -->
-		<Header />
-		<h1>{pageTitle}内容</h1>
-		<ul>
-			<li><a href="/posts/post-1">我的第一篇博客</a></li>
-			<li><a href="/posts/post-2">我的第二篇博客</a></li>
-			<li><a href="/posts/post-3">我的第三篇博客</a></li>
-			<li><a href="/posts/post-4">我的第四篇博客</a></li>
-		</ul>
-		<!-- 使用组件 定义页面底部 -->
-		<Footer />
-		<script>
-			// 通过导入脚本文件复用
-			import "../scripts/menu.js";
-		</script>
-	</body>
-</html>
+<BaseLayout pageTitle={pageTitle}内容>
+	<!-- 里面是BaseLayout的插槽(<slot />)的自定义内容 -->
+	<h2>欢迎来到我的博客!</h2>
+	<p>这里是我分享想法和经验的地方。</p>
+	<ul>
+		<li><a href="/posts/post-1">我的第一篇博客</a></li>
+		<li><a href="/posts/post-2">我的第二篇博客</a></li>
+		<li><a href="/posts/post-3">我的第三篇博客</a></li>
+		<li><a href="/posts/post-4">我的第四篇博客</a></li>
+	</ul>
+</BaseLayout>

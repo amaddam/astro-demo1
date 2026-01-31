@@ -1,52 +1,12 @@
 ---
 // 使用全局CSS样式
-import Footer from "../components/Footer.astro";
-import Header from "../components/Header.astro";
-import Navigation from "../components/Navigation.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 import "../styles/global.css";
 const pageTitle = "首页";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{pageTitle}</title>
-	</head>
-	<body>
-		<!-- 下面的超链接应该是抽取成一个组件来使用的, 现在是需要在每个页面中重复定义 -->
-		<!-- <a href="/">首页</a> -->
-		<!-- <a href="/blog">博客</a> -->
-		<!-- <a href="/about">关于</a> -->
-
-		<!-- 使用组件 -->
-		<!-- <Navigation /> -->
-		<!-- 这里使用汉堡包和面包屑来导航, 而不是页面顶部直接点击的方式 -->
-		<Header />
-
-		<h1>{pageTitle}</h1>
-
-		<!-- 使用组件 定义页面底部 -->
-		<Footer />
-		
-		<script>
-			// 这里给汉堡包添加点击事件监听器,  但是没有复用, 通过导入脚本文件复用
-			// const hamburger = document.querySelector(".hamburger");
-			// const navLinks = document.querySelector(".nav-links");
-			// // 如果hamburger和navLinks都存在, 则添加点击事件监听器
-			// if (hamburger && navLinks) {
-			// 	// 给汉堡包添加点击事件监听器
-			// 	hamburger.addEventListener("click", () => {
-			// 		// toggle 如果存在则移除, 不存在则添加, 这样就实现了点击可切换导航菜单的显示和隐藏
-			// 		navLinks.classList.toggle("expanded");
-			// 	});
-			// }
-
-			// 通过导入脚本文件复用
-			import "../scripts/menu.js";
-		</script>
-	</body>
-</html>
+<BaseLayout pageTitle={pageTitle}>
+	<!-- 里面是BaseLayout的插槽(<slot />)的自定义内容 -->
+	<h2>欢迎来到我的网站!</h2>
+	<p>这是一个使用Astro构建的简单网站示例。</p>
+</BaseLayout>
