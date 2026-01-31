@@ -1,0 +1,15 @@
+---
+// 这是一个社交媒体链接子组件, 接受 siteUrl 和 siteTitle 作为属性, Astro.props是Astro模板中的特殊对象, 用于访问传递给组件的属性
+const { siteUrl, siteTitle } = Astro.props;
+---
+
+<style>
+  a {
+    padding: 0.5rem 1rem;
+    color: white;
+    background-color: #4c1d95;
+    text-decoration: none;
+  }
+</style>
+
+<a href={`https://www.${siteUrl}.com`}>{siteTitle}</a>

@@ -1,5 +1,29 @@
 ---
+// 引入导航组件, 用于页面间导航, 否则每个页面都需要重复定义导航链接, 组件在src/components/Navigation.astro文件中
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+// import Navigation from "../components/Navigation.astro";
+// 使用全局CSS样式
+import "../styles/global.css";
+// JSX (JavaScript XML)
+// 变量的创建和使用
+// 普通变量
+const pageTitle = "关于";
+// 对象变量
+const identity = {
+	name: "lrns",
+	occupation: "学徒",
+	hobbies: ["美食", "美女", "美梦"],
+};
+// 数组变量
+const skills = ["HTML", "CSS", "JS", "Vue", "React", "Astro", "Writing Docs"];
+// 条件渲染
+let isLoading = true;
 
+// CSS样式变量
+let skillColor = "blue";
+let fontWeight = "bold";
+let textCase = "uppercase";
 ---
 
 <html lang="en">
@@ -9,12 +33,98 @@
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>关于</title>
+		<title>{pageTitle}</title>
+		<!-- 基础CSS样式 , 缺点全部写死了 -->
+		<!-- <style>
+			/* 定义样式 */
+			h1 {
+				color: purple;
+				font-size: 4rem;
+			}
+			.skill {
+				color: green;
+				font-weight: bold;
+			}
+		</style> -->
+
+		<!-- 使用变量定义CSS样式, 缺点虽然使用了变量, 但是变量值还是写死了 -->
+		<!-- 1. 定义变量 , 注意有两个括号, 外层是花括号表示JSX语法，内层是大括号表示对象 -->
+		<!-- <style define:vars={{skillColor: "red", fontWeight: "bold", textCase: "uppercase"}}>
+			h1 {
+				color: purple
+				font-size: 4rem;
+			}
+			.skill {
+				/* 使用变量 */
+				color: var(--skillColor);
+				font-weight: var(--fontWeight);
+				text-transform: var(--textCase);
+			}
+		</style> -->
+
+		<!-- 完全使用变量定义CSS样式, 虽然变量值不是写死的了, 但是如果要复用的话, 还是需要重复定义变量, 需要引入全局样式 -->
+		<!-- 1. 定义变量 , 注意依然有两个括号, 外层是花括号表示JSX语法，内层是大括号表示对象 -->
+		<!-- <style define:vars={{skillColor: skillColor , fontWeight: fontWeight, textCase: textCase}}> -->
+		<!-- 如果变量名称和变量名相同，可以简写 -->
+		<!-- <style define:vars={{skillColor: skillColor , fontWeight: fontWeight, textCase: textCase}}> -->
+		<!-- <style define:vars={{skillColor, fontWeight, textCase}}>
+			h1 {
+				color: purple
+				font-size: 4rem;
+			}
+			.skill {
+				/* 使用变量 */
+				color: var(--skillColor);
+				font-weight: var(--fontWeight);
+				text-transform: var(--textCase);
+			}
+		</style> -->
 	</head>
 	<body>
-				<a href="/">首页</a>
-		<a href="/blog">博客</a>
-		<a href="/about">关于</a>
-		<h1>关于内容</h1>
+		<!-- 下面的超链接应该是抽取成一个组件来使用的, 现在是需要在每个页面中重复定义 -->
+		<!-- <a href="/">首页</a> -->
+		<!-- <a href="/blog">博客</a> -->
+		<!-- <a href="/about">关于</a> -->
+
+		<!-- 使用组件, 不仅可以减少代码重复, 还可以方便后期维护 -->
+		<!-- <Navigation /> -->
+		<!-- 这里使用汉堡包和面包屑来导航, 而不是页面顶部直接点击的方式 -->
+		<Header />
+
+		<h1>{pageTitle}内容</h1>
+		<h2>个人信息</h2>
+		<p>姓名: {identity.name}</p>
+		<p>职业: {identity.occupation}</p>
+		<p>爱好:</p>
+		<ul>
+			{identity.hobbies.map((hobby) => <li>{hobby}</li>)}
+		</ul>
+		<p>最喜欢{identity.hobbies[2]}</p>
+		<h2>技能列表</h2>
+		<ul>
+			{skills.map((skill) => <li class="skill">{skill}</li>)}
+		</ul>
+		<h2>{isLoading ? "加载中..." : "加载完成!"}</h2>
+		<h2>{isLoading && "正在加载，请稍候..."}</h2>
+
+		<!-- 使用组件 定义页面底部 -->
+		<Footer />
+
+		<script>
+			// 这里给汉堡包添加点击事件监听器,  但是没有复用, 通过导入脚本文件复用
+			// const hamburger = document.querySelector(".hamburger");
+			// const navLinks = document.querySelector(".nav-links");
+			// // 如果hamburger和navLinks都存在, 则添加点击事件监听器
+			// if (hamburger && navLinks) {
+			// 	// 给汉堡包添加点击事件监听器
+			// 	hamburger.addEventListener("click", () => {
+			// 		// toggle 如果存在则移除, 不存在则添加, 这样就实现了点击可切换导航菜单的显示和隐藏
+			// 		navLinks.classList.toggle("expanded");
+			// 	});
+			// }
+
+			// 通过导入脚本文件复用
+			import "../scripts/menu.js";
+		</script>
 	</body>
 </html>
