@@ -1,0 +1,28 @@
+---
+// frontmatter属性由使用该布局的Markdown文件传入, 包含文章的元数据, 也就是在Markdown文件顶部定义的YAML数据
+const { frontmatter } = Astro.props;
+---
+
+<!-- 下面是文章的公共部分 -->
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+    </head>
+    <body>
+        <h1>{frontmatter.title}</h1>
+        <p>作者: {frontmatter.author}</p>
+        <p>发表于: {frontmatter.pubDate.toString().slice(0, 10)}</p>
+        <p><em>{frontmatter.description}</em></p>
+        <img
+            src={frontmatter.image.url}
+            width="300"
+            alt={frontmatter.image.alt}
+        />
+        <!-- 插槽, Markdown内容 -->
+        <slot />
+    </body>
+</html>

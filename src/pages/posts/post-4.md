@@ -1,4 +1,5 @@
 ---
+layout: "../../layouts/MarkdownPostLayout.astro"
 title: 我的第四篇博文
 author: lrns
 description: "遇到一些问题，到社区可以得到有用的帮助!"

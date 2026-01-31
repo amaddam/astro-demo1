@@ -1,4 +1,5 @@
 ---
+layout: "../../layouts/MarkdownPostLayout.astro"
 title: '我的第一篇博文'
 pubDate: 2025-01-32
 description: '这是我新博客中的第一篇文章.'

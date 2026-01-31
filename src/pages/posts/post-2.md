@@ -1,4 +1,5 @@
 ---
+layout: "../../layouts/MarkdownPostLayout.astro"
 title: 我的第二篇博文
 author: lrns
 description: "学习 Astro 让我不能自拔"
