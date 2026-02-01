@@ -1,0 +1,55 @@
+---
+import BlogPost from "../../components/BlogPost.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+// 在页面初次构建时返回一个数组, 不会在每次请求时运行, 在Astro中, 如果是用于SSG(静态站点生成)的页面, 名字必须是 export async function getStaticPaths(), 不能改名.
+// 结构类似于:
+// [ { params: { tag: '标签名' } , props: { posts: [ 标签对应的文章列表 ] } }, ... ]
+// 这样Astro就会为每个标签生成一个静态页面
+export async function getStaticPaths() {
+    // 获取所有博客文章的Markdown文件
+    const modules = import.meta.glob<{
+        frontmatter: { title: string; tags: string[] };
+        url: string;
+    }>("../posts/*.md", { eager: true });
+    const allPosts = Object.values(modules);
+
+    //获取所有独特的标签
+    const tagSet = new Set<string>();
+    allPosts.forEach((post) => {
+        post.frontmatter.tags.forEach((tag) => tagSet.add(tag));
+    });
+
+    // 获取标签对应的所有文章列表, 通过遍历标签和文章列表, 把标签和对应的文章列表组合起来
+    const paths = Array.from(tagSet).map((tag) => {
+        const taggedPosts = allPosts.filter((post) =>
+            post.frontmatter.tags.includes(tag),
+        );
+        return { params: { tag }, props: { posts: taggedPosts } };
+    });
+
+    // return [
+    //     { params: { tag: "AAA" }, props: { posts: ["aaaPost1", "aaaPost2"] } },
+    //     { params: { tag: "BBB" }, props: { posts: ["bbbPost1"] } },
+    //     { params: { tag: "CCC" }, props: { posts: ["cccPost1", "cccPost2", "cccPost3"] } },
+    // ];
+    return paths;
+}
+
+// 1. 获取到要查看的标签, Astro.params.tag 可以获取到动态路由参数
+const { tag } = Astro.params;
+// 2. 导入获取所有指定标签的文章
+const { posts } = Astro.props;
+---
+
+<BaseLayout pageTitle={`标签: ${tag}`}>
+    <h2>标签: {tag}</h2>
+    <p>以下是带有标签 "{tag}" 的博客文章:</p>
+    <ul>
+        {
+            posts.map((post) => (
+                <BlogPost url={post.url} title={post.frontmatter.title} />
+            ))
+        }
+    </ul>
+</BaseLayout>

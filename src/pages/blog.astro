@@ -1,21 +1,42 @@
 ---
-// 使用全局CSS样式
-import Footer from "../components/Footer.astro";
-import Header from "../components/Header.astro";
-import Navigation from "../components/Navigation.astro";
+// 使用基础模板
+import BlogPost from "../components/BlogPost.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import "../styles/global.css";
 const pageTitle = "博客";
+
+// 动态导入所有博客文章的Markdown文件, 之前可以通过 const allPosts = await Astro.glob("../pages/posts/*.md"); 导入, 但在最新版本中被弃用, 改为使用import.meta.glob
+// 这里泛型的意思是告诉TypeScript每个模块都有frontmatter属性, 里面会有title字段, 还有url字段
+const modules = import.meta.glob<{ frontmatter: { title: string }; url: string }>("./posts/*.md", { eager: true });
+// posts 现在是一堆 markdown 模块(里面有 frontmatter / Content 等导出)
+const allPosts = Object.values(modules);
 ---
 
-<BaseLayout pageTitle={pageTitle}内容>
+<BaseLayout pageTitle={pageTitle} 内容>
 	<!-- 里面是BaseLayout的插槽(<slot />)的自定义内容 -->
 	<h2>欢迎来到我的博客!</h2>
 	<p>这里是我分享想法和经验的地方。</p>
-	<ul>
+	<!-- 这里是博客文章列表, 但是是每次手动添加的, 添加之后, 这里得手动更新 -->
+	<!-- <ul>
 		<li><a href="/posts/post-1">我的第一篇博客</a></li>
 		<li><a href="/posts/post-2">我的第二篇博客</a></li>
 		<li><a href="/posts/post-3">我的第三篇博客</a></li>
 		<li><a href="/posts/post-4">我的第四篇博客</a></li>
+	</ul> -->
+	<!-- 这里是写死的, 可以放到组件里面 -->
+	<!-- <ul>
+		{allPosts.map((post) => (
+			<li>
+				<a href={post.url}>
+					{post.frontmatter.title}
+				</a>
+			</li>	
+		))}
+	</ul> -->
+	
+	<!-- 用组件中构建 -->
+	<ul>
+		{allPosts.map((post) => (
+			<BlogPost url={post.url} title={post.frontmatter.title} />
+		))}
 	</ul>
 </BaseLayout>

@@ -1,0 +1,8 @@
+---
+// 把博客文章的URL和标题作为属性传入组件
+const { url, title } = Astro.props;
+---
+
+<li>
+    <a href={url}>{title}</a>
+</li>
