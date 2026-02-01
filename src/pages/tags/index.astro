@@ -1,0 +1,47 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const pageTitle = "标签";
+// 获取所有文章的标签
+const modules = import.meta.glob<{ frontmatter: { tags: string[] } }>(
+    "../posts/*.md",
+    { eager: true },
+);
+const allPosts = Object.values(modules);
+const tagSet = new Set<string>();
+allPosts.forEach((post) => {
+    post.frontmatter.tags.forEach((tag) => tagSet.add(tag));
+});
+---
+
+<BaseLayout pageTitle={pageTitle}>
+    <div class="tags">
+            {
+                // 把所有标签显示为链接, 点击后跳转到对应的标签页面, 通过首字母排序
+                Array.from(tagSet).sort().map((tag) => (
+                    <p class="tag">
+                        <a href={`/tags/${tag}`}>{tag}</a>
+                    </p>
+                ))
+            }
+    </div>
+</BaseLayout>
+    
+<style>
+  a { color: #00539f; }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+  }
+
+  .tag {
+    margin: 0.25em;
+    border: dotted 1px #a1a1a1;
+    border-radius: 0.5em;
+    padding: 0.5em 1em;
+    font-size: 1.15em;
+    background-color: #f8fcfd;
+  }
+</style>

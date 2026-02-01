@@ -1,4 +1,6 @@
 ---
+// 添加标签页面, 用于显示带有特定标签的所有博客文章, 通过动态路由实现, 文件名中的 [tag] 表示这是一个动态路由参数, 可以通过 Astro.params.tag 获取到具体的标签值
+// 浏览器中通过 hostname/tags/标签名 访问该页面, 例如 hostname/tags/JavaScript, 有大小写区分
 import BlogPost from "../../components/BlogPost.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
