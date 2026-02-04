@@ -55,3 +55,10 @@ npm  i  @astrojs/rss      # 安装astro rss插件
 npx  astro  add  preact   # 添加preact支持(轻量React)项目级别依赖
 
 ```
+
+## 概念
+岛屿架构(Island Architecture) 参考: https://docs.astro.build/en/concepts/islands/
+像是大部分的网页框架使用的是SPA(单页面应用)架构,而Astro使用的是岛屿架构,即大部分内容是静态生成的,只有少部分交互式组件是动态加载的,这样可以提升性能和SEO效果.
+Astro的核心设计就是整页默认静态, 只有少数需要交互的组件才在浏览器里面跑JS, 这些"少数会动的组件"就像在一大片静态 HTML"海洋"里散落的几个"岛屿", 所以叫 islands architecture(岛屿架构)
+他能支持多个UI框架, 比如React, Vue, Svelte等, 可以在同一个项目中混合使用这些框架的组件. 甚至可以在一个页面中使用不同框架的组件.
+

@@ -1,11 +1,16 @@
 ---
 // 使用全局CSS样式
+import Greeting from "../components/Greeting";
 import BaseLayout from "../layouts/BaseLayout.astro";
 const pageTitle = "首页";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-	<!-- 里面是BaseLayout的插槽(<slot />)的自定义内容 -->
-	<h2>欢迎来到我的网站!</h2>
-	<p>这是一个使用Astro构建的简单网站示例。</p>
+    <!-- 里面是BaseLayout的插槽(<slot />)的自定义内容 -->
+    <h2>欢迎来到我的网站!</h2>
+    <p>这是一个使用Astro构建的简单网站示例。</p>
+
+    <!-- 必须加上 client:load, 否则最终打包时不会包含该组件的JS代码, 而是只保留静态HTML -->
+    <!-- 加上 client:load 后, 前端页面中会加入一个<astro-island>的标签, astro-island 被称之为岛屿, 用来标记哪些部分是需要被客户端JS接管的 -->
+    <Greeting client:load messages={["Hej", "Hallo", "Hola", "Habari"]}/>
 </BaseLayout>
