@@ -41,3 +41,17 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+
+### 命令解释
+```
+npm  create  astro@latest # 创建项目
+npm  run  dev             # 启动开发服务器
+npm  run  build           # 构建生产版本
+npm  run  preview         # 预览生产版本
+
+// 衍生命令
+npm  i  @astrojs/rss      # 安装astro rss插件
+npx  astro  add  preact   # 添加preact支持(轻量React)项目级别依赖
+
+```
