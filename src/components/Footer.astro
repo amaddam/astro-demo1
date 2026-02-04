@@ -2,6 +2,15 @@
 import Social from "./Social.astro";
 ---
 
+<style>
+  footer {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+</style>
+
 <footer>
     <!-- 使用子组件 Social 来显示社交媒体链接, 父组件通过 const { siteUrl, siteTitle } = Astro.props; 访问传递给组件的属性 -->
     <Social siteUrl="github" siteTitle="GitHub" />
