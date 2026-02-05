@@ -54,6 +54,7 @@ npm  run  preview           # 预览生产版本
 // 衍生命令
 npm  i  @astrojs/rss        # 安装astro rss插件
 npx  astro  add  preact     # 添加preact支持(轻量React)项目级别依赖
+npx @astrojs/upgrade        # 升级astro及相关依赖到最新版本
 
 // cloudflare worker部署
 npx wrangler login          # 登录cloudflare
