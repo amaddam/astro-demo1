@@ -23,7 +23,60 @@ let skillColor = "blue";
 let fontWeight = "bold";
 let textCase = "uppercase";
 ---
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+	<link rel="icon" href="/favicon.ico" />
+	<meta name="viewport" content="width=device-width" />
+	<meta name="generator" content={Astro.generator} />
+	<title>{pageTitle}</title>
+	<!-- 基础CSS样式 , 缺点全部写死了 -->
+	<!-- <style>
+        /* 定义样式 */
+        h1 {
+            color: purple;
+            font-size: 4rem;
+        }
+        .skill {
+            color: green;
+            font-weight: bold;
+        }
+    </style> -->
 
+	<!-- 使用变量定义CSS样式, 缺点虽然使用了变量, 但是变量值还是写死了 -->
+	<!-- 1. 定义变量 , 注意有两个括号, 外层是花括号表示JSX语法，内层是大括号表示对象 -->
+	<!-- <style define:vars={{skillColor: "red", fontWeight: "bold", textCase: "uppercase"}}>
+        h1 {
+            color: purple
+            font-size: 4rem;
+        }
+        .skill {
+            /* 使用变量 */
+            color: var(--skillColor);
+            font-weight: var(--fontWeight);
+            text-transform: var(--textCase);
+        }
+    </style> -->
+
+	<!-- 完全使用变量定义CSS样式 -->
+	<!-- 1. 定义变量 , 注意依然有两个括号, 外层是花括号表示JSX语法，内层是大括号表示对象 -->
+	<!-- <style define:vars={{skillColor: skillColor , fontWeight: fontWeight, textCase: textCase}}> -->
+	<!-- 如果变量名称和变量名相同，可以简写 -->
+	<!-- <style define:vars={{skillColor: skillColor , fontWeight: fontWeight, textCase: textCase}}> -->
+	<style define:vars={{skillColor, fontWeight, textCase}}>
+        h1 {
+            color: purple;
+            font-size: 4rem;
+        }
+        .skill {
+            /* 使用变量 */
+            color: var(--skillColor);
+            font-weight: var(--fontWeight);
+            text-transform: var(--textCase);
+        }
+    </style>
+</head>
 <BaseLayout pageTitle={pageTitle}>
 	<h2>个人信息</h2>
 	<p>姓名: {identity.name}</p>
