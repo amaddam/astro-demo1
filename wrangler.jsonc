@@ -1,0 +1,11 @@
+{
+  // $schema 指定 wrangler 配置文件的 JSON schema 路径. 目前没加这个依赖, 所以先注释掉
+  // "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "my-astro-static",
+  // 这里的时间是指你希望你的 Worker 兼容的日期. 一般设置为今天的日期即可
+  "compatibility_date": "2026-02-02",
+  // 输出目录在 dist 下
+  "assets": {
+    "directory": "./dist"
+  }
+}

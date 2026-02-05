@@ -45,15 +45,20 @@ Feel free to check [our documentation](https://docs.astro.build) or jump into ou
 
 ### 命令解释
 ```
-npm  create  astro@latest # 创建项目
-npm  run  dev             # 启动开发服务器
-npm  run  build           # 构建生产版本
-npm  run  preview         # 预览生产版本
+// 基础命令 
+npm  create  astro@latest   # 创建项目
+npm  run  dev               # 启动开发服务器
+npm  run  build             # 构建生产版本
+npm  run  preview           # 预览生产版本
 
 // 衍生命令
-npm  i  @astrojs/rss      # 安装astro rss插件
-npx  astro  add  preact   # 添加preact支持(轻量React)项目级别依赖
+npm  i  @astrojs/rss        # 安装astro rss插件
+npx  astro  add  preact     # 添加preact支持(轻量React)项目级别依赖
 
+// cloudflare worker部署
+npx wrangler login          # 登录cloudflare
+npx wrangler whoami         # 查看当前登录用户信息
+npx wrangler deploy         # 部署项目到cloudflare worker
 ```
 
 ## 概念
